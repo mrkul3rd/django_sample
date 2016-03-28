@@ -1,0 +1,36 @@
+{% extends 'projects_management/base.html' %}
+
+{% block title %}List of employees{% endblock %}
+
+{% block body_block %}
+    <br/>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">List of employees</h3>
+        </div>
+
+        <div class="panel-body">
+            <a class="btn btn-default" href="{% url 'new_employee' %}" role="button">Add new Employee</a>
+            <br/><br/>
+            <div class="container-fluid panel">
+                {% if employee_list %}
+                    <table class="table table-hover">
+                        <th>Name</th>
+                        <th>Project</th>
+                        <th>Action</th>
+                        {% for employee in employee_list %}
+                            <tr>
+                                <td><a href="{% url 'employee_detail' employee.id %}">{{ employee.emp_name }}</a></td>
+                                <td>{{ employee.project }}</td>
+                                <td><a class="btn btn-default" href="{% url 'employee_detail' employee.id %}">Edit</a>&nbsp;<a class="btn btn-default" href="javascript: if(confirm('Are you sure to delete employee {{ employee.emp_name }}?')) location.href='{% url "delete_employee" employee.id %}'">Delete</a></td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% else %}
+                    <p>No employee are available.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <hr/>
+{% endblock %}

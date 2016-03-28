@@ -1,0 +1,32 @@
+{% extends 'projects_management/base.html' %}
+
+{% block title %}Add new Employee{% endblock %}
+
+{% block body_block %}
+    <br/>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Add new Employee</h3>
+        </div>
+
+        <div class="panel-body">
+            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+            <form id="employee_form" method="post" action="/projects/new_employee/">
+                {% csrf_token %}
+                {% for hidden in form.hidden_fields %}
+                    {{ hidden }}
+                {% endfor %}
+
+                {% for field in form.visible_fields %}
+                    {{ field.errors }}
+                    {{ field.help_text }}
+                    {{ field }}
+                {% endfor %}
+
+                <input type="submit" class="btn btn-default" name="submit" value="Create Employee" />
+            </form>
+        </div>
+    </div>
+    <hr/>
+{% endblock %}

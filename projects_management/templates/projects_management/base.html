@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title>{% block title %}Default title{% endblock %}</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        {% load staticfiles %}
+        {# Load the tag library #}
+        {% load bootstrap3 %}
+
+        {# Load CSS and JavaScript #}
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+
+        {# Display django.contrib.messages as Bootstrap alerts #}
+        {% bootstrap_messages %}
+        <!-- <script src="{% static "/js/jquery.js" %}"></script> -->
+        <script src="{% static "js/namnh-ajax.js" %}"></script>
+    </head>
+
+    <body>
+        <!-- Page specific content goes here -->
+        <div class="container">
+            {% block body_block %}This is body_block's default content.{% endblock %}
+        </div> 
+    </body>
+</html>

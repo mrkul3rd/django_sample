@@ -1,0 +1,54 @@
+{% extends 'projects_management/base.html' %}
+
+{% block title %}Employee detail{% endblock %}
+
+{% block body_block %}
+    <br/>
+    <a class="btn btn-default" href="{% url 'all_employee' %}" role="button">Back to list employees</a>
+    <hr/>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Employee detail</h3>
+        </div>
+
+        <div class="panel-body">
+            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            <form id="employee_form" class="form-horizontal" action="{% url 'employee_detail' employee.id %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="employee" class="col-sm-2 control-label">ID</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="employee.id" name="employee.id" placeholder="ID" value="{{ employee.id }}" disabled="true" />
+                    </div>
+                </div>
+                {% for hidden in form.hidden_fields %}
+                    {{ hidden }}
+                {% endfor %}
+
+                {% for field in form.visible_fields %}
+                    {{ field.errors }}
+                    <div class="form-group">
+                        <label for="employee" class="col-sm-2 control-label">{{ field.help_text }}</label>
+                        <div class="col-sm-10">
+                            {{ field }}
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr/>
+{% endblock %}
